@@ -3,9 +3,20 @@ var app						  = express();
 var Intercom 	      = require('intercom-client');
 var bodyParser 			= require("body-parser");
 var $               = require('jquery');
-//var mongoose 			  = require("mongoose");
+var mongoose 			  = require("mongoose");
 
+//===============DATABASE CONFIG======================
 //mongoose.connect("mongodb://localhost://ic_dashboard_api", //{useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect("mongodb+srv://vidmantas:<desrainis>@cluster0-kzxsw.mongodb.net/test?retryWrites=true&w=majority", {
+  useNewUrlParser: true, 
+	useUnifiedTopology: true,
+	useCreateIndex: true
+}).then (() => {
+	console.log("Connectect to DB!");
+}).catch(err => {
+	console.log('ERROR:', err.message);
+});
+//===============DATABASE CONFIG======================
 
 app.set ("view engine", "ejs");
 app.use (bodyParser.urlencoded({extended:true}));
@@ -16,6 +27,8 @@ app.use (express.static('public'));
 var client = new Intercom.Client({ 
     token: 'dG9rOmZjMTc1MDhhXzIwNTZfNDE3ZF9iOGM1XzczYjdmMzQ5Y2E1ZDoxOjA=' 
 }); 
+//======== TOKENS ========//
+
 
 //======== TEST ========//
 /*
@@ -66,14 +79,18 @@ app.get("/", function(req, r){
     aux(response, 0);
   });
 });
-
+/*
  //IMPORTANT
  app.listen(3000, function() { 
     console.log('Server listening on port 3000'); 
   });
   //IMPORTANT
-
-
+*/
+//IMPORTANT
+app.listen(process.env.PORT, process.env.IP, function(){
+  console.log('Server listening on port 3000'); 
+});
+//IMPORTANT
 
 
 
