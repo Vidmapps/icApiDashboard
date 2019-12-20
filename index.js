@@ -62,12 +62,13 @@ app.get("/", function(req, r){
     Promise.all(promises).then((remarks) => {
       myRemarks.push(...remarks.filter((remark) => remark !== null));
 
-      if (myRemarks.length < 12 && currentPage < 10) {
+      if (myRemarks.length < 5 && currentPage < 10) {
         client.nextPage(res.body.pages, (newRes) => {
           aux(newRes, currentPage);
         });
       } else {
         r.render("index", { remarks: myRemarks });
+
       }
     });
   };
@@ -79,19 +80,23 @@ app.get("/", function(req, r){
     aux(response, 0);
   });
 });
-/*
+
  //IMPORTANT
  app.listen(3000, function() { 
     console.log('Server listening on port 3000'); 
   });
   //IMPORTANT
-*/
+
+
+/*
+
+
 //IMPORTANT
 app.listen(process.env.PORT, process.env.IP, function(){
   console.log('Server listening on port 3000'); 
 });
 //IMPORTANT
-
+*/
 
 
 
