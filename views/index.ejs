@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Intercom Dashboard</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/style.css">
+        <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+
+    </head>
+    <body>
+        
+        <h1>Congratulations!</h1>
+        
+
+        <ul>
+            <% remarks.forEach(function(r){ %>
+                <li><%= r.name %> - <%= r.remark %></li>
+            <% }); %>
+        </ul>
+
+        <script type="text/javascript">
+            setInterval(() => {
+                window.location.reload();
+            }, 100000);
+        </script>
+    </body>
+</html>
