@@ -42,7 +42,6 @@ let myRemarks = [];
 
 //======== REMARKS FUNCTION ========//
 app.get("/", function(req, r){
-    //////////
   let aux = function (res, currentPage) {
     const promises = res.body.conversations.map((conversation, index) => {
       return new Promise((resolve) => {
@@ -51,7 +50,7 @@ app.get("/", function(req, r){
             const adminID = response.body.conversation_rating.teammate.id;
             client.admins.find(adminID, convs => {
               console.log(response.body);
-              resolve({ name: convs.body.name, remark: response.body.conversation_rating.remark });
+              resolve({ name: convs.body.name, remark: response.body.conversation_rating.remark, photo: convs.body.avatar.image_url });
             });
           } else {
             resolve(null);
@@ -61,14 +60,14 @@ app.get("/", function(req, r){
     });
     Promise.all(promises).then((remarks) => {
       myRemarks.push(...remarks.filter((remark) => remark !== null));
-
+  
       if (myRemarks.length < 5 && currentPage < 10) {
         client.nextPage(res.body.pages, (newRes) => {
           aux(newRes, currentPage);
         });
       } else {
         r.render("index", { remarks: myRemarks });
-
+  
       }
     });
   };

@@ -2,7 +2,10 @@
 <html>
     <head>
         <title>Intercom Dashboard</title>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+
         <link rel="stylesheet" type="text/css" href="/style.css">
         <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
         <!--<meta http-equiv="refresh" content="30">-->
@@ -13,15 +16,18 @@
         
         <h1>Congratulations!</h1>
         
-
-        <ul>
-            <% remarks.forEach(function(r){ %>
-                <li><%= r.name %> - <%= r.remark %></li>
-            <% }); %>
-        </ul>
-
-        <img src="https://apps.shopifycdn.com/listing_images/b1983a5240f536f4369a3e5861489e9c/icon/dc1e2016ce46b3ba63c2a25958579d89.png"
-
+        <% remarks.forEach(function(r){ %>
+            <div class="page-container">
+                <div class= "contact-grid-wrapper">
+                    <div class="text">
+                        <h2><%= r.name %></h2> 
+                        <div class="tooltip--bottom" data-tooltip="Hello World!"><%= r.remark %> </div>
+                    </div>
+                    <img src="<%= r.photo %>"/>
+                    
+                </div>
+            </div>
+        <% }); %>
         
     </body>
 </html>
