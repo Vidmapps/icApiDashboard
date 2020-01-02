@@ -130,6 +130,10 @@ p {
   margin-right: 10px;
 }
 
+.tooltip--bottom {
+  font-size: 1.5em;
+}
+
 .page-container {
   display: grid;    
 }
