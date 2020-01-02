@@ -10,7 +10,7 @@
         <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
         <meta name="google" content="notranslate">
 
-        <!--<meta http-equiv="refresh" content="30">-->
+        <meta http-equiv="refresh" content="1800">
 
 
     </head>
@@ -21,12 +21,11 @@
         <% remarks.forEach(function(r){ %>
             <div class="page-container">
                 <div class= "contact-grid-wrapper">
+                    <img src="<%= r.photo %>"/>
                     <div class="text">
                         <h2><%= r.name %></h2> 
                         <div class="tooltip--bottom" data-tooltip="Hello World!"><%= r.remark %> </div>
                     </div>
-                    <img src="<%= r.photo %>"/>
-                    
                 </div>
             </div>
         <% }); %>

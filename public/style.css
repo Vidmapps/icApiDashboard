@@ -12,7 +12,7 @@ h1, h2, p {
 }
 h1 {
   font-size: 26px;
-  background: #e91e63;
+  background: #4AB7DB;
   color: #efefef;
   padding: 40px 0 40px 20%;
   margin-bottom: 50px;
@@ -30,7 +30,7 @@ body > div:last-of-type {
   margin-bottom: 100px;
 }
 h2 {
-  color: #e91e63;
+  color: #4AB7DB;
   font-weight: 500;
   margin-bottom: 16px;
 }
@@ -131,12 +131,14 @@ p {
 }
 
 .page-container {
-  justify-content: center;
+  display: grid;    
 }
 
 .page-container > .contact-grid-wrapper {
   display: grid;
-  grid-template-columns: 3fr 1fr;
+  grid-template-columns: 1fr 3fr;
   grid-gap: 10px;
   /* width: 1000px; */
 }
+
+
