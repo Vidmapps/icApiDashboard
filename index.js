@@ -61,7 +61,7 @@ app.get("/", function(req, r){
     Promise.all(promises).then((remarks) => {
       myRemarks.unshift(...remarks.filter((remark) => remark !== null));
   
-      if (myRemarks.length < 3 && currentPage < 20) {
+      if (myRemarks.length < 8 && currentPage < 20) {
         client.nextPage(res.body.pages, (newRes) => {
           aux(newRes, currentPage);
         });
