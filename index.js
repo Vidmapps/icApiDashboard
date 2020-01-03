@@ -46,7 +46,7 @@ app.get("/", function(req, r){
     const promises = res.body.conversations.map((conversation, index) => {
       return new Promise((resolve) => {
         client.conversations.find({ id: conversation.id }, (response) => {
-          if (response.body.conversation_rating.remark !== null && response.body.conversation_rating.rating === 5) {
+          if (response.body.conversation_rating.remark !== null && response.body.conversation_rating.rating > 3) {
             const adminID = response.body.conversation_rating.teammate.id;
             client.admins.find(adminID, convs => {
               console.log(response.body);
@@ -61,7 +61,7 @@ app.get("/", function(req, r){
     Promise.all(promises).then((remarks) => {
       myRemarks.unshift(...remarks.filter((remark) => remark !== null));
   
-      if (myRemarks.length < 8 && currentPage < 20) {
+      if (myRemarks.length < 3 && currentPage < 20) {
         client.nextPage(res.body.pages, (newRes) => {
           aux(newRes, currentPage);
         });
