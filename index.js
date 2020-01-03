@@ -42,14 +42,13 @@ let myRemarks = [];
 
 //======== REMARKS FUNCTION ========//
 app.get("/", function(req, r){
-  let aux = function (res, currentPage) {
+  let aux = function (res, currentPage) { 
     const promises = res.body.conversations.map((conversation, index) => {
       return new Promise((resolve) => {
         client.conversations.find({ id: conversation.id }, (response) => {
-          if (response.body.conversation_rating.remark !== null && response.body.conversation_rating.rating > 3) {
+          if (response.body.conversation_rating.remark !== null && response.body.conversation_rating.rating > 4) {
             const adminID = response.body.conversation_rating.teammate.id;
             client.admins.find(adminID, convs => {
-              console.log(response.body);
               resolve({ name: convs.body.name, remark: response.body.conversation_rating.remark, photo: convs.body.avatar.image_url });
             });
           } else {
@@ -60,23 +59,26 @@ app.get("/", function(req, r){
     });
     Promise.all(promises).then((remarks) => {
       myRemarks.unshift(...remarks.filter((remark) => remark !== null));
-  
-      if (myRemarks.length < 8 && currentPage < 20) {
+      if (myRemarks.length < 2 && currentPage < 20) {
         client.nextPage(res.body.pages, (newRes) => {
-          aux(newRes, currentPage);
-        });
+          aux(newRes, currentPage); 
+        }); 
       } else {
-        r.render("index", { remarks: myRemarks });
-  
+        let unique = myRemarks.filter(function(elem, index, self) {
+          return index === self.indexOf(elem);
+        });
+        console.log(unique[0,1]);
+        r.render("index", { remarks: unique });
+
       }
     });
-  };
-  client.conversations.list({ 
-      order: "desc",
-      sort: "created_at",
-      open: false,
+};
+client.conversations.list({ 
+    order: "desc",
+    sort: "created_at",
+    open: false,
   }, (response) => {
-    aux(response, 0);
+  aux(response, 0);
   });
 });
 
