@@ -18,8 +18,8 @@ h1 {
   margin-bottom: 50px;
 }
 body > div {
-  width: 60%;
-  margin-left: 20%;
+  width: 80%;
+  margin-left: 10%;
   margin-bottom: 30px;
   background: white;
   padding: 20px;
@@ -145,4 +145,12 @@ p {
   /* width: 1000px; */
 }
 
+img {
+  vertical-align: middle;
+  margin: auto;
+  padding: 20px;
+}
 
+.text {
+  padding-bottom: 5px;
+}
