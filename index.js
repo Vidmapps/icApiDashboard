@@ -172,10 +172,8 @@ app.get("/", function(req, r){ //GETting all remarks
 
 
 //IMPORTANT
-//IMPORTANT
-app.listen(3000, function() { 
+app.listen(process.env.PORT, process.env.IP, function(){
   console.log('Server listening on port 3000'); 
 });
-//IMPORTANT
 //IMPORTANT
 
