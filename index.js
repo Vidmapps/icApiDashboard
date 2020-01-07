@@ -5,9 +5,12 @@ var bodyParser 			= require("body-parser");
 var $               = require('jquery');
 var mongoose 			  = require("mongoose");
 
+//var dbRemark 							= require("./models/model");
+
+
 //===============DATABASE CONFIG======================
-//mongoose.connect("mongodb://localhost://ic_dashboard_api", //{useNewUrlParser: true, useUnifiedTopology: true});
-mongoose.connect("mongodb+srv://vidmantas:<desrainis>@cluster0-kzxsw.mongodb.net/test?retryWrites=true&w=majority", {
+//mongoose.connect("mongodb://localhost/ic_dashboard", {useNewUrlParser: true, useUnifiedTopology: true});
+mongoose.connect("mongodb+srv://vidmantas:desrainis@cluster0-kzxsw.mongodb.net/test?retryWrites=true&w=majority", {
   useNewUrlParser: true, 
 	useUnifiedTopology: true,
 	useCreateIndex: true
@@ -16,6 +19,17 @@ mongoose.connect("mongodb+srv://vidmantas:<desrainis>@cluster0-kzxsw.mongodb.net
 }).catch(err => {
 	console.log('ERROR:', err.message);
 });
+
+
+//===============SCHEMA SETUP======================
+var remarkSchema = new mongoose.Schema({
+    name: String,
+    remark: String,
+    image_url: String,
+  });
+
+var dbRemark = mongoose.model("dbRemark", remarkSchema);
+module.exports = mongoose.model("dbRemark", remarkSchema);
 //===============DATABASE CONFIG======================
 
 app.set ("view engine", "ejs");
@@ -29,17 +43,57 @@ var client = new Intercom.Client({
 }); 
 //======== TOKENS ========//
 
-
-//======== TEST ========//
 /*
+///////////// WORKING Photo and name Finder ////////////////
 app.get("/", function(req, res){
-  res.render("index");
-});
+    client.conversations.find({ 
+		id: '24937987100' }, convs => {
+    const adminID = {tmid: convs.body.conversation_rating.teammate.id, full: convs.body};
+    //const adminIds = JSON.stringify(convs)
+	    client.admins.find(adminID.tmid, convs => {
+        const adminPhoto = convs.body.avatar.image_url
+        const adminName = JSON.stringify(convs.body.name)
+        //console.log(adminIds);
+       res.render("index", { adminPhoto: adminPhoto, adminName: adminName });
+        });
+    });
+  });
+///////////// WORKING Photo and name Finder ////////////////
 */
-//======== TEST ========//
+
+//======== Create MongoDB ========//
+function addToMongoDB(){
+  dbRemark.create({
+    name: convs.body.name,
+    remark: response.body.conversation_rating.remark,
+    image_url: convs.body.avatar.image_url 
+  }, function(err, dbremarks){
+    if(err){
+      console.log("Erroras");
+      console.log(err);
+    } else {
+      console.log("Created");
+    }
+  });
+};
+//======== Create MongoDB ========//
+
+//======== Find MongoDB ========//
+function findMongoDB(){
+  dbRemark.find({}, function(err, dbremarks){
+    if(err){
+      console.log("Erroras");
+      console.log(err);
+    } else {
+      console.log(dbremarks);
+    }
+  });
+};
+//======== Find MongoDB ========//
 
 let myRemarks = [];
 
+/*
 //======== REMARKS FUNCTION ========//
 app.get("/", function(req, r){
   let aux = function (res, currentPage) { 
@@ -49,7 +103,21 @@ app.get("/", function(req, r){
           if (response.body.conversation_rating.remark !== null && response.body.conversation_rating.rating > 4) {
             const adminID = response.body.conversation_rating.teammate.id;
             client.admins.find(adminID, convs => {
-              resolve({ name: convs.body.name, remark: response.body.conversation_rating.remark, photo: convs.body.avatar.image_url });
+              resolve({ name: convs.body.name, remark: response.body.conversation_rating.remark, image_url: convs.body.avatar.image_url });
+//======== Create MongoDB ========//              
+              dbRemark.create({
+                name: convs.body.name,
+                remark: response.body.conversation_rating.remark,
+                image_url: convs.body.avatar.image_url 
+              }, function(err, dbremarks){
+                if(err){
+                  console.log("Erroras");
+                  console.log(err);
+                } else {
+                  console.log("Created");
+                }
+              });
+//======== Create MongoDB ========//
             });
           } else {
             resolve(null);
@@ -59,7 +127,7 @@ app.get("/", function(req, r){
     });
     Promise.all(promises).then((remarks) => {
       myRemarks.unshift(...remarks.filter((remark) => remark !== null));
-      if (myRemarks.length < 2 && currentPage < 20) {
+      if (myRemarks.length < 8 && currentPage < 20) {
         client.nextPage(res.body.pages, (newRes) => {
           aux(newRes, currentPage); 
         }); 
@@ -67,42 +135,47 @@ app.get("/", function(req, r){
         let unique = myRemarks.filter(function(elem, index, self) {
           return index === self.indexOf(elem);
         });
-        console.log(unique[0,1]);
         r.render("index", { remarks: unique });
-
+        //======== Find MongoDB ========//
+        //findMongoDB()
+        //======== Find MongoDB ========//
       }
     });
-};
+  };
+
 client.conversations.list({ 
-    order: "desc",
-    sort: "created_at",
-    open: false,
-  }, (response) => {
-  aux(response, 0);
+      order: "desc",
+      sort: "created_at",
+      open: false,
+    }, (response) => {
+    aux(response, 0);
   });
 });
-
-/*
- //IMPORTANT
- app.listen(3000, function() { 
-    console.log('Server listening on port 3000'); 
-  });
-  //IMPORTANT
 */
+
+app.get("/", function(req, r){ //GETting all remarks
+  dbRemark.find({}, function(err, dbremarks){
+		if(err){
+			console.log("Erroras");
+			console.log(err);
+		} else {
+			r.render("index", {remarks: dbremarks});
+		}
+	});
+});
+
+
+
+//if(currentUser && comment.author.id.equals(currentUser._id));
 
 
 
 
 //IMPORTANT
-app.listen(process.env.PORT, process.env.IP, function(){
+//IMPORTANT
+app.listen(3000, function() { 
   console.log('Server listening on port 3000'); 
 });
 //IMPORTANT
-
-
-
-
-
-
-
+//IMPORTANT
 
