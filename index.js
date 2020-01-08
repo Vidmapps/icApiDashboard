@@ -91,10 +91,10 @@ function findMongoDB(){
 };
 //======== Find MongoDB ========//
 
-let myRemarks = [];
+/* let myRemarks = [];
 
-/*
-//======== REMARKS FUNCTION ========//
+
+///======== REMARKS FUNCTION ========//
 app.get("/", function(req, r){
   let aux = function (res, currentPage) { 
     const promises = res.body.conversations.map((conversation, index) => {
@@ -150,8 +150,8 @@ client.conversations.list({
     }, (response) => {
     aux(response, 0);
   });
-});
-*/
+}); 
+ */
 
 app.get("/", function(req, r){ //GETting all remarks
   dbRemark.find({}, function(err, dbremarks){
@@ -163,12 +163,6 @@ app.get("/", function(req, r){ //GETting all remarks
 		}
 	});
 });
-
-
-
-//if(currentUser && comment.author.id.equals(currentUser._id));
-
-
 
 
 //IMPORTANT
