@@ -1,5 +1,5 @@
 
-
+/* 
 //======== REMARKS FUNCTION ========//
 app.get("/", function(req, r){
     //////////
@@ -48,7 +48,7 @@ var remarksSchema = new mongoose.Schema({
   
   var Remarks = mongoose.model("Remarks", remarksSchema);
   module.exports = mongoose.model("Remarks", remarksSchema);
-
+ */
   //======== SCHEMA SETUP ========//
 
 
