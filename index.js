@@ -91,7 +91,7 @@ function findMongoDB(){
 };
 //======== Find MongoDB ========//
 
-/* let myRemarks = [];
+ let myRemarks = [];
 
 
 ///======== REMARKS FUNCTION ========//
@@ -101,10 +101,11 @@ app.get("/", function(req, r){
       return new Promise((resolve) => {
         client.conversations.find({ id: conversation.id }, (response) => {
           if (response.body.conversation_rating.remark !== null && response.body.conversation_rating.rating > 4) {
+            console.log(response.body.conversation_rating.rating)
             const adminID = response.body.conversation_rating.teammate.id;
             client.admins.find(adminID, convs => {
               resolve({ name: convs.body.name, remark: response.body.conversation_rating.remark, image_url: convs.body.avatar.image_url });
-//======== Create MongoDB ========//              
+/* //======== Create MongoDB ========//              
               dbRemark.create({
                 name: convs.body.name,
                 remark: response.body.conversation_rating.remark,
@@ -117,7 +118,7 @@ app.get("/", function(req, r){
                   console.log("Created");
                 }
               });
-//======== Create MongoDB ========//
+//======== Create MongoDB ========// */
             });
           } else {
             resolve(null);
@@ -127,15 +128,14 @@ app.get("/", function(req, r){
     });
     Promise.all(promises).then((remarks) => {
       myRemarks.unshift(...remarks.filter((remark) => remark !== null));
-      if (myRemarks.length < 8 && currentPage < 20) {
+      if (myRemarks.length < 8 && currentPage < 20 ) {
         client.nextPage(res.body.pages, (newRes) => {
           aux(newRes, currentPage); 
+
         }); 
       } else {
-        let unique = myRemarks.filter(function(elem, index, self) {
-          return index === self.indexOf(elem);
-        });
-        r.render("index", { remarks: unique });
+        r.render("index", { remarks: myRemarks });
+
         //======== Find MongoDB ========//
         //findMongoDB()
         //======== Find MongoDB ========//
@@ -151,9 +151,8 @@ client.conversations.list({
     aux(response, 0);
   });
 }); 
- */
 
-app.get("/", function(req, r){ //GETting all remarks
+/* app.get("/", function(req, r){ //GETting all remarks
   dbRemark.find({}, function(err, dbremarks){
 		if(err){
 			console.log("Erroras");
@@ -162,7 +161,7 @@ app.get("/", function(req, r){ //GETting all remarks
 			r.render("index", {remarks: dbremarks});
 		}
 	});
-});
+}); */
 
 
 //IMPORTANT
