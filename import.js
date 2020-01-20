@@ -29,7 +29,7 @@ runImport()
 function myImporter(){
   //=============== Remarks Importer ======================
   //mongoose.connect("mongodb://localhost/ic_dashboard", {useNewUrlParser: true, useUnifiedTopology: true});
-  mongoose.connect("mongodb+srv://vidmantas:desrainis@cluster0-kzxsw.mongodb.net/test?retryWrites=true&w=majority", {
+  mongoose.connect(process.env.DATABASEURL, {
     useNewUrlParser: true, 
     useUnifiedTopology: true,
     useCreateIndex: true
