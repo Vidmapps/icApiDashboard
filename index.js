@@ -1,7 +1,9 @@
 var express 				= require("express");
 var app						  = express();
 var bodyParser 			= require("body-parser");
+var $               = require("jquery");
 var dbRemark 				= require("./import");
+//const importRemarks = require("./import");
 
 app.set ("view engine", "ejs");
 app.use (bodyParser.urlencoded({extended:true}));
@@ -16,5 +18,6 @@ app.get("/", function(req, r){ //GETting all remarks
 
 //=============== Server ======================
 app.listen(process.env.PORT, process.env.IP, function(){
-  console.log('Server listening on port 3000'); 
+  console.log('Server listening on port 3000');
+  console.log("Connecting to DB..");  
 });

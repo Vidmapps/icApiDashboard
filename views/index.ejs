@@ -10,42 +10,9 @@
         <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
         <meta name="google" content="notranslate">
 
-        <meta http-equiv="refresh" content="14400">
+        <meta http-equiv="refresh" content="1800">
 
-        <!DOCTYPE html>
-        <html>
-            <head>
-                <title>Intercom Dashboard</title>
-                <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-                <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-        
-                <link rel="stylesheet" type="text/css" href="/style.css">
-                <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
-                <meta name="google" content="notranslate">
-        
-                <meta http-equiv="refresh" content="1800">
-        
-        
-            </head>
-            <body>
-                
-                <h1>Congratulations!</h1>
-                
-                <% remarks.forEach(function(r){ %>
-                    <div class="page-container">
-                        <div class= "contact-grid-wrapper">
-                            <img src='<%= r.image_url %>'>
-                            <div class="text">
-                                <h2><%= r.name %></h2> 
-                                <div class="tooltip--bottom" data-tooltip="Hello World!"><%= r.remark %> </div>
-                            </div>
-                        </div>
-                    </div>
-                <% }); %>
-                
-            </body>
-        </html>
+
     </head>
     <body>
         
@@ -54,10 +21,10 @@
         <% remarks.forEach(function(r){ %>
             <div class="page-container">
                 <div class= "contact-grid-wrapper">
-                    <img src="<%= r.photo %>"/>
+                    <img src='<%= r.image_url %>'>  
                     <div class="text">
                         <h2><%= r.name %></h2> 
-                        <div class="tooltip--bottom" data-tooltip="Hello World!"><%= r.remark %> </div>
+                        <div id="emoji" class="tooltip--bottom" data-tooltip="Hello World!"><%= r.remark %> </div> 
                     </div>
                 </div>
             </div>
