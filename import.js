@@ -77,7 +77,7 @@ function myImporter(){
               });
             }
             myRemarks.push(...remarksToInsert);
-            if (myRemarks.length < 2 && currentPage < 10 ) {
+            if (myRemarks.length < 2 && currentPage < 40 ) {
               client.nextPage(res.body.pages, (newRes) => {
                 aux(newRes, currentPage); 
                 console.log(res.body.pages)
