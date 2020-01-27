@@ -16,7 +16,34 @@
     </head>
     <body>
         
-        <h1>Congratulations!</h1>
+            <h1>
+                    Top CSMs of the Month!
+                    <div class="right">
+                        Next Update in<span id="time"></span>
+                    </div>
+                        
+                    <script>
+                        function startTimer(duration, display) {
+                            var timer = duration, minutes, seconds;
+                            setInterval(function () {
+                                minutes = parseInt(timer / 60, 10)
+                                seconds = parseInt(timer % 60, 10);
+                                minutes = minutes < 10 ? "0" + minutes : minutes;
+                                seconds = seconds < 10 ? "0" + seconds : seconds;
+                                display.textContent = minutes + ":" + seconds;
+                                if (--timer < 0) {
+                                    timer = duration;
+                                }
+                            }, 1000);
+                        }
+                        window.onload = function () {
+                            var minutes = 60 * 30,
+                                display = document.querySelector('#time');
+                            startTimer(minutes, display);
+                        };
+                    </script>
+
+                </h1>
         
         <% remarks.forEach(function(r){ %>
             <div class="page-container">
