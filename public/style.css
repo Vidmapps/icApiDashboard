@@ -160,3 +160,7 @@ img {
   float: right;
   margin-right: 10px;
 }
+
+#title {
+  font-size: 2em;
+}

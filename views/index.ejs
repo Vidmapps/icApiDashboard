@@ -17,10 +17,11 @@
     <body>
         
             <h1>
-                    Top CSMs of the Month!
-                    <div class="right">
-                        Next Update in <span id="time"></span>
-                    </div>
+                <div id="title">Congratulations!</div> 
+                <div class="right">
+                    Next Update in
+                        <span id="time"></span>
+                </div>
                         
                     <script>
                         function startTimer(duration, display) {
@@ -32,7 +33,7 @@
                                 seconds = seconds < 10 ? "0" + seconds : seconds;
                                 display.textContent = minutes + ":" + seconds;
                                 if (--timer < 0) {
-                                    timer = duration;
+                                    timer = 0;
                                 }
                             }, 1000);
                         }
